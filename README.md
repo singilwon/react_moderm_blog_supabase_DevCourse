@@ -151,3 +151,7 @@
 - authentication-> policies에서 다시 posts 부분에 select, insert, update 그리고 delete까지 다시 만들기
 - blogcreate 만지기
 - api docs -> posts에서 insert rows에 있는 코드 가져다 쓰기
+
+## 글 받아와서 main에 보여주기
+
+- api docs->posts -> read 에 있는 코드 bloglist 파일에 넣기, 상태 중 하나인 posts를 받을 때 타입은 Database에 있는 거 가져올 수 있음
