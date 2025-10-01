@@ -1,27 +1,34 @@
 import { useState } from "react";
 import { Calendar, Edit3, Save, X } from "lucide-react";
-import { useNavigate } from "react-router";
 import supabase from "../../utils/supabase";
-// import ProfileSkeleton from "../../components/loading/ProfileSkeleton";
+import { useNavigate } from "react-router";
+import { useAuthStore } from "../../stores/authStore";
+import type { Profile } from "../../types/profile";
+import ProfileSkeleton from "../../components/loading/ProfileSkeleton";
 
 export default function Profile() {
   const navigate = useNavigate();
+  const isLoading = useAuthStore((state) => state.isLoading);
+  const profile = useAuthStore((state) => state.profile);
+  const setProfile = useAuthStore((state) => state.setProfile);
   const [isEditing, setIsEditing] = useState(false);
-  const [profile, setProfile] = useState({
-    name: "John Doe",
-    email: "john.doe@example.com",
-    bio: "Frontend developer with a passion for creating beautiful and functional web experiences. I love writing about React, TypeScript, and modern web technologies.",
-    joinDate: "2023-06-15",
-    postsCount: 12,
-    avatar:
-      "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop",
-  });
+  const [editForm, setEditForm] = useState<Partial<Profile> | null>(profile);
 
-  const [editForm, setEditForm] = useState(profile);
-
-  const handleSave = () => {
-    setProfile(editForm);
-    setIsEditing(false);
+  const handleSave = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("profiles")
+        .update({ ...editForm })
+        .eq("id", profile?.id || "")
+        .select()
+        .single();
+      if (error) throw error;
+      setProfile(data);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsEditing(false);
+    }
   };
 
   const handleCancel = () => {
@@ -56,13 +63,14 @@ export default function Profile() {
       if (error) throw error;
       navigate("/");
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }
 
+  if (isLoading) return <ProfileSkeleton />;
+
   return (
     <div>
-      {/* <ProfileSkeleton /> */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900">Profile</h1>
       </div>
@@ -72,26 +80,27 @@ export default function Profile() {
           <div className="bg-white rounded-lg shadow-sm p-6">
             <div className="text-center mb-6">
               <img
-                src={profile.avatar}
+                src={profile?.avatar_url || ""}
                 alt="Profile"
                 className="w-24 h-24 rounded-full mx-auto mb-4"
               />
               <h2 className="text-xl font-bold text-gray-900">
-                {profile.name}
+                {profile?.display_name}
               </h2>
-              <p className="text-gray-600">{profile.email}</p>
+              <p className="text-gray-600">{profile?.email}</p>
             </div>
 
             <div className="space-y-4">
               <div className="flex items-center text-gray-600">
                 <Calendar size={16} className="mr-3" />
                 <span>
-                  Joined {new Date(profile.joinDate).toLocaleDateString()}
+                  Joined{" "}
+                  {new Date(profile?.created_at || "").toLocaleDateString()}
                 </span>
               </div>
               <div className="flex items-center text-gray-600">
                 <Edit3 size={16} className="mr-3" />
-                <span>{profile.postsCount} posts published</span>
+                <span>0 posts published</span>
               </div>
             </div>
 
@@ -144,9 +153,9 @@ export default function Profile() {
                   </label>
                   <input
                     type="text"
-                    value={editForm.name}
+                    value={editForm?.display_name || ""}
                     onChange={(e) =>
-                      setEditForm({ ...editForm, name: e.target.value })
+                      setEditForm({ ...editForm, display_name: e.target.value })
                     }
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
                   />
@@ -157,7 +166,7 @@ export default function Profile() {
                   </label>
                   <input
                     type="email"
-                    value={editForm.email}
+                    value={editForm?.email || ""}
                     onChange={(e) =>
                       setEditForm({ ...editForm, email: e.target.value })
                     }
@@ -169,7 +178,7 @@ export default function Profile() {
                     Bio
                   </label>
                   <textarea
-                    value={editForm.bio}
+                    value={editForm?.bio || ""}
                     onChange={(e) =>
                       setEditForm({ ...editForm, bio: e.target.value })
                     }
@@ -179,7 +188,7 @@ export default function Profile() {
                 </div>
               </div>
             ) : (
-              <p className="text-gray-700 leading-relaxed">{profile.bio}</p>
+              <p className="text-gray-700 leading-relaxed">{profile?.bio}</p>
             )}
           </div>
 

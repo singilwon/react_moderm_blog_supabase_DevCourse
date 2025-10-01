@@ -129,3 +129,15 @@
 - 로그인 X : routes 폴더 안에 PublicOnlyRoute 만짐
 - 로그인 : X와 비슷한데 반대로 if를 주고 조금 만짐
 - 그리고 마지막에 app에서 어떤 상태일 때 들어갈 수 있는 애들 각각 넣어주기(Outlet에 들어갈)
+
+## profile(mypage 느낌) 바꾸기
+
+### 내 정보 만지기
+
+- profile.tsx에 있는 더미데이터들 다 바꾸기
+- justand에 있는 profile 가져와서 바꾸고, editForm도 바꾸기
+- editForm은 공부할 필요 있음(제대로 못 들음) -> Partial이 뭐지
+
+### 바꾼 정보 update
+
+- api docs->profiles에 있는 update 내용 가져와서 save할 때 누르는 버튼 onclick 받는 함수에 내용 알맞게 바꿔서 넣기
