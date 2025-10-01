@@ -36,7 +36,9 @@
 
 - logs -> auth에서 확인 가능
 
-### profile setting
+## provile setting
+
+### profile setting 해보기
 
 - 초기에 받지 못한 정보를 받기 위한 기능 만드는 것
 - 이미 있는 정보들은 supabase에 담겨 있는 것들 가져와서 띄우기도 추가
@@ -121,3 +123,9 @@
 ### 로그아웃 하기
 
 - authentication -> providers -> github -> docs 가보면 signout하는 코드가 있음, 그걸 함수(함수 안에 try,catch)안에 넣고 적절히 handle를 잘 만지고, logout 버튼에 onClick 넣어주기
+
+## 라우터 만지기(로그인,로그인X 사람 따로 접근 가능하게 만들기)
+
+- 로그인 X : routes 폴더 안에 PublicOnlyRoute 만짐
+- 로그인 : X와 비슷한데 반대로 if를 주고 조금 만짐
+- 그리고 마지막에 app에서 어떤 상태일 때 들어갈 수 있는 애들 각각 넣어주기(Outlet에 들어갈)
