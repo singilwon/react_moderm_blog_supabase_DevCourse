@@ -6,24 +6,8 @@ import BlogDetail from "./pages/blog/BlogDetail";
 import Profile from "./pages/profile/Profile";
 import BlogCreate from "./pages/blog/BlogCreate";
 import ProfileSetup from "./pages/auth/ProfileSetup";
-import { useEffect } from "react";
-import supabase from "./utils/supabase";
 
 export default function App() {
-  useEffect(() => {
-    async function getTodos() {
-      const { data: todos } = await supabase.from("todos").select();
-      if (!todos) {
-        console.log("todos 없음");
-        return;
-      }
-      if (todos.length > 1) {
-        console.log(todos);
-      }
-    }
-
-    getTodos();
-  }, []);
   return (
     <>
       <Routes>
