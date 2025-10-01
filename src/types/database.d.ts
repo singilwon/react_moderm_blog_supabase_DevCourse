@@ -39,6 +39,44 @@ export type Database = {
   }
   public: {
     Tables: {
+      posts: {
+        Row: {
+          category: string
+          content: string
+          created_at: string
+          id: number
+          profile_id: string
+          thumbnail: string
+          title: string
+        }
+        Insert: {
+          category: string
+          content: string
+          created_at?: string
+          id?: number
+          profile_id?: string
+          thumbnail: string
+          title: string
+        }
+        Update: {
+          category?: string
+          content?: string
+          created_at?: string
+          id?: number
+          profile_id?: string
+          thumbnail?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "posts_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null

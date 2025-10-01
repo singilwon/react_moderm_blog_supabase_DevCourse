@@ -141,3 +141,13 @@
 ### 바꾼 정보 update
 
 - api docs->profiles에 있는 update 내용 가져와서 save할 때 누르는 버튼 onclick 받는 함수에 내용 알맞게 바꿔서 넣기
+
+## 글 쓰기(write)
+
+- 글 쓴 걸 받을 수 있는 table를 supabase에 새로 만듦
+- 다 null이 못 오게 체크 해제
+- 외래키도 지정해주기(profile.id랑 id 지정)
+- database.d.ts 새로 만들기 위해 api docs->introduction에서 다시 다운 받아서 바꾸기
+- authentication-> policies에서 다시 posts 부분에 select, insert, update 그리고 delete까지 다시 만들기
+- blogcreate 만지기
+- api docs -> posts에서 insert rows에 있는 코드 가져다 쓰기
