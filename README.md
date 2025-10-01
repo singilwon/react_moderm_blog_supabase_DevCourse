@@ -111,11 +111,13 @@
 - 만든 zustand를 main에 App 위에 새로 껴놓으면 됨
   gi
 
-## 로그아웃 해보기
+## 로그아웃
 
 ### 로그인과 로그아웃 UI 다르게 보이기
 
 - profile이 만약에 값이 있다면 로그인된 상태, null이면 로그아웃 상태
 - Header에서 목업으로 되어있는 부분, isLoggedIn 대신에 profile 넣어주고 값 알맞게 바꿔주면 로그인 상태에서 보이는 Header가 달라짐
 
-###
+### 로그아웃 하기
+
+- authentication -> providers -> github -> docs 가보면 signout하는 코드가 있음, 그걸 함수(함수 안에 try,catch)안에 넣고 적절히 handle를 잘 만지고, logout 버튼에 onClick 넣어주기

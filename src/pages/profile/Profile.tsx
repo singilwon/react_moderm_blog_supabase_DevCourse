@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { Calendar, Edit3, Save, X } from "lucide-react";
+import { useNavigate } from "react-router";
+import supabase from "../../utils/supabase";
 // import ProfileSkeleton from "../../components/loading/ProfileSkeleton";
 
 export default function Profile() {
+  const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [profile, setProfile] = useState({
     name: "John Doe",
@@ -47,6 +50,16 @@ export default function Profile() {
     },
   ];
 
+  async function signOut() {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      navigate("/");
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   return (
     <div>
       {/* <ProfileSkeleton /> */}
@@ -89,7 +102,10 @@ export default function Profile() {
               >
                 Edit Profile
               </button>
-              <button className="w-full bg-red-500 text-white py-2 px-4 rounded-md hover:bg-gray-800 transition-colors mt-2.5">
+              <button
+                className="w-full bg-red-500 text-white py-2 px-4 rounded-md hover:bg-gray-800 transition-colors mt-2.5"
+                onClick={signOut}
+              >
                 Logout
               </button>
             </div>
