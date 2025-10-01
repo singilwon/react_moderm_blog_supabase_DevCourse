@@ -109,3 +109,4 @@
 - profile(profile 테이블 데이터 담는 곳) 타입 지정해줄 때, 그냥 다 d.ts 새로 만들어서 적어도 되지만, 그 속에서 아까 만든 database.d.ts에서 가져올 수 있음(웬만하면 타입 다 있기 때문)
 - onAuthStateChange : api docs guides 에서 검색하면 됨
 - 만든 zustand를 main에 App 위에 새로 껴놓으면 됨
+  gi
