@@ -17,12 +17,12 @@ export default function App() {
           <Route index element={<Navigate to="/blog" />} />
           <Route path="blog" element={<BlogList />} />
           <Route path="blog/:id" element={<BlogDetail />} />
+          <Route path="profile-setup" element={<ProfileSetup />} />
           <Route element={<PublicOnlyRoute />}>
             <Route path="login" element={<LoginSocial />} />
           </Route>
           <Route element={<ProtectedRoutes />}>
             <Route path="profile" element={<Profile />} />
-            <Route path="profile-setup" element={<ProfileSetup />} />
             <Route path="blog/create" element={<BlogCreate />} />
           </Route>
         </Route>
